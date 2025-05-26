@@ -1,1 +1,4 @@
-Merge export_to_csv.py, merge_csv.py and per90.py
+Create pipeline for extracting data for players for each league
+1. Extract player scouting report from FBref
+1.1 scout_summary & scout_full 
+1.2 See all stats above x% in scout report
