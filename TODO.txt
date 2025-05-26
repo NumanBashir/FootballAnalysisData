@@ -4,3 +4,9 @@ Create pipeline for extracting data for players for each league
 1.2 See all stats above x% in scout report
 
 2. Plot data points from scout report
+
+For Windows
+git pull
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
