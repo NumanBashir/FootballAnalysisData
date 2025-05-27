@@ -15,22 +15,44 @@ def merge_data(df_list):
     return merged
 
 # Calculate per 90 minutes
+# def calculate_per90(df):
+#     # Ensure '90s' is numeric
+#     df['90s'] = pd.to_numeric(df['90s'], errors='coerce')
+
+#     # Only use numeric columns (int64/float64), excluding specific ones
+#     excluded_cols = ['90s', 'Rk', 'Born']
+#     numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
+#     numeric_cols = [col for col in numeric_cols if col not in excluded_cols]
+
+#     # Calculate per 90 values
+#     for col in numeric_cols:
+#         df[col + '_per90'] = np.where(df['90s'] > 0, (df[col] / df['90s']).round(2), 0)
+
+#     # Drop the original stat columns (not metadata)
+#     df = df.drop(columns=numeric_cols)
+
+#     return df
+
 def calculate_per90(df):
+    
     # Ensure '90s' is numeric
     df['90s'] = pd.to_numeric(df['90s'], errors='coerce')
 
-    # Only use numeric columns (int64/float64), excluding specific ones
-    excluded_cols = ['90s', 'Rk', 'Born']
-    numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
-    numeric_cols = [col for col in numeric_cols if col not in excluded_cols]
+    # Identify only raw integer columns (excluding '90s' itself)
+    excluded_cols = ['90s', 'Rk', 'Born', 'Age', 'Matches', 'Player', 'Nation', 'Pos', 'Squad']
+    raw_int_cols = [
+        col for col in df.columns
+        if col not in excluded_cols
+        and pd.api.types.is_numeric_dtype(df[col])
+        and (df[col].dropna() % 1 == 0).all()
+    ]
 
-    # Calculate per 90 values
-    for col in numeric_cols:
+    # Calculate per90 values
+    for col in raw_int_cols:
         df[col + '_per90'] = np.where(df['90s'] > 0, (df[col] / df['90s']).round(2), 0)
 
-    # Drop the original stat columns (not metadata)
-    df = df.drop(columns=numeric_cols)
-
+    # Drop the raw count columns
+    df = df.drop(columns=raw_int_cols)
     return df
 
 
