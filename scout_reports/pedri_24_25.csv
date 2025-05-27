@@ -14,17 +14,12 @@ npxG + xAG,0.27,83
 Progressive Carries,2.78,95
 Progressive Passes,10.7,99
 Progressive Passes Rec,4.02,89
-Goals,0.09,58
 Shots Total,0.7,26
 Shots on Target,0.27,50
 Goals/Shot,0.13,86
 Goals/Shot on Target,0.33,70
 Average Shot Distance,20.4,45
 Shots from Free Kicks,0.0,36
-Penalty Kicks Made,0.0,45
-Penalty Kicks Attempted,0.0,44
-xG: Expected Goals,0.06,40
-npxG: Non-Penalty xG,0.06,42
 npxG/Shot,0.08,61
 Goals - xG,0.03,81
 Non-Penalty Goals - npxG,0.03,81
@@ -38,15 +33,11 @@ Passes Completed (Medium),28.55,94
 Passes Attempted (Medium),31.75,94
 Passes Completed (Long),6.91,96
 Passes Attempted (Long),9.61,92
-Assists,0.16,82
-xAG: Exp. Assisted Goals,0.21,94
 xA: Expected Assists,0.27,97
 Key Passes,2.12,94
 Passes into Final Third,9.73,97
 Passes into Penalty Area,2.35,98
 Crosses into Penalty Area,0.11,54
-Progressive Passes,10.7,99
-Passes Attempted,82.69,96
 Live-ball Passes,78.15,96
 Dead-ball Passes,4.45,84
 Passes from Free Kicks,2.44,88
@@ -58,7 +49,6 @@ Corner Kicks,1.15,78
 Inswinging Corner Kicks,0.59,81
 Outswinging Corner Kicks,0.02,60
 Straight Corner Kicks,0.0,45
-Passes Completed,72.67,96
 Passes Offside,0.09,77
 Passes Blocked,1.29,10
 Shot-Creating Actions,5.21,99
@@ -103,22 +93,15 @@ Times Tackled During Take-On,0.56,43
 Carries,58.97,96
 Total Carrying Distance,331.32,98
 Progressive Carrying Distance,158.45,97
-Progressive Carries,2.78,95
 Carries into Final Third,3.09,98
 Carries into Penalty Area,0.25,69
 Miscontrols,1.42,30
 Dispossessed,1.08,26
 Passes Received,70.91,96
-Progressive Passes Rec,4.02,89
-Yellow Cards,0.07,93
-Red Cards,0.0,59
 Second Yellow Card,0.0,55
 Fouls Committed,0.27,99
 Fouls Drawn,1.58,75
 Offsides,0.05,44
-Crosses,1.62,71
-Interceptions,0.79,33
-Tackles Won,1.33,63
 Penalty Kicks Won,0.0,41
 Penalty Kicks Conceded,0.0,63
 Own Goals,0.0,53

@@ -53,12 +53,15 @@ if table:
     df['Per 90'] = pd.to_numeric(df['Per 90'], errors='coerce')  # Non-numeric → NaN
     df = df[df['Per 90'].notna()]  # Keep only numeric rows
 
+    # df = df.drop_duplicates(subset='Statistic', keep='first')
+    df = df.drop_duplicates()
+
     # Use this method if you want to filter by best --> Comment if you want all stats
     # df = filter_by_best_rows(df, 95)
 
     df = filter_top_percentile_stats(df, 5)
 
-    df.to_csv("5_scout_report_pedri.csv", index=False)
+    df.to_csv("scout_report_pedri.csv", index=False)
     print("✅ Scout report saved as '5_scout_report_pedri.csv'")
 else:
     print("❌ Table 'scout_full_MF' not found directly in HTML")
