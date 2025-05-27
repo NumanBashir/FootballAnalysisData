@@ -22,10 +22,10 @@ merged_df = pd.read_csv("output\Championship_24_25\merged.csv")
 
 # Step 3: Per 90
 per90_df = calculate_per90(merged_df)
-per90_df.to_csv("output\Championship_24_25\per90.csv", index=False)
+per90_df.to_csv("output\Championship_24_25\per90.csv", sep=';', decimal=',', index=False)
 
 # Step 4: Filter by 90s played
 filtered_df = filter_by_90s(per90_df, min_90s=5.0)
-filtered_df.to_csv("output\Championship_24_25\\filter.csv", index=False)
+filtered_df.to_csv("output\Championship_24_25\\filter.csv", sep=';', decimal=',', index=False)
 
 print("Pipeline complete ✅")

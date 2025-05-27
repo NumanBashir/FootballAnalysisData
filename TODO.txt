@@ -5,7 +5,7 @@ Create pipeline for extracting data for players for each league
 
 ✅ 2. Plot data points from scout report --> PowerBI
 ✅ 2.1 Create script that transforms into more suitable csv file (; and ,)
-2.2 Add functionality to pipeline inside scraping
+✅ 2.2 Add functionality to pipeline inside scraping
 
 ✅ 3. Only calculate per90 for integer columns --> Not same order as merged, but doesn't matter as we still have the data
 
