@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def merge_player_tables(df_list):
     """
@@ -24,3 +25,46 @@ def merge_player_tables(df_list):
         merged = pd.merge(merged, df, on='Season', how='outer')
 
     return merged.drop_duplicates()
+
+def calculate_per90(df):
+    import numpy as np
+    import pandas as pd
+
+    df['90s'] = pd.to_numeric(df['90s'], errors='coerce')
+
+    excluded_cols = {
+        'Player', 'Squad', 'Season', 'Comp', 'Age', 'Nation', 'Pos', 'Born', 'Team', 'Matches', '90s'
+    }
+
+    raw_cols = []
+
+    for col in df.columns:
+        if (
+            col in excluded_cols or
+            '_per90' in col.lower() or
+            '%' in col or
+            col.strip().endswith('%')
+        ):
+            continue
+
+        try:
+            col_data = pd.to_numeric(df[col], errors='coerce')
+            if not col_data.isna().all():
+                raw_cols.append(col)
+        except:
+            continue
+
+    print(f"🔍 Converting to per90 and dropping originals: {raw_cols}")
+
+    for col in raw_cols:
+        df[col + '_per90'] = np.where(
+            df['90s'] > 0,
+            (pd.to_numeric(df[col], errors='coerce') / df['90s']).round(2),
+            0
+        )
+
+    df.drop(columns=raw_cols, inplace=True)
+    return df
+
+
+
