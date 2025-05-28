@@ -67,4 +67,21 @@ def calculate_per90(df):
     return df
 
 
+def filter_by_season(df, season: str):
+    """
+    Filters the DataFrame to include only rows matching the given season string.
+
+    Parameters:
+        df (pd.DataFrame): The merged and processed player stats DataFrame.
+        season (str): The season to keep (e.g., '2024-2025').
+
+    Returns:
+        pd.DataFrame: Filtered DataFrame with only the selected season's data.
+    """
+    if 'Season' not in df.columns:
+        raise ValueError("❌ 'Season' column not found in DataFrame.")
+    
+    filtered = df[df['Season'] == season].reset_index(drop=True)
+    print(f"✅ Filtered to season: {season} — {len(filtered)} row(s) retained.")
+    return filtered
 
