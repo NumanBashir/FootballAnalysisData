@@ -3,6 +3,8 @@
 
 import pandas as pd
 import numpy as np
+import os
+
 
 # Merge data
 def merge_data(df_list):
@@ -60,3 +62,7 @@ def calculate_per90(df):
 def filter_by_90s(df, min_90s=4.0):
     df['90s'] = pd.to_numeric(df['90s'], errors='coerce')
     return df[df['90s'] >= min_90s]
+
+# Reformat for PowerBI
+def reformat_powerbi(df, path):
+    df.to_csv(path, sep=';', decimal=',', index=False)
