@@ -32,7 +32,7 @@ def filter_top_percentile_stats(df, top_n=5):
 scraper = cloudscraper.create_scraper()
 
 # URL of the scouting report
-url = "https://fbref.com/en/players/0d9b2d31/scout/365_m1/Pedri-Scouting-Report"
+url = "https://fbref.com/en/players/9e7483ff/scout/365_m1/Desire-Doue-Scouting-Report"
 
 # Get the response
 response = scraper.get(url)
@@ -58,10 +58,9 @@ if table:
 
     # Use this method if you want to filter by best --> Comment if you want all stats
     # df = filter_by_best_rows(df, 95)
+    # df = filter_top_percentile_stats(df, 5)
 
-    df = filter_top_percentile_stats(df, 5)
-
-    df.to_csv("scout_report_pedri.csv", index=False)
-    print("✅ Scout report saved as '5_scout_report_pedri.csv'")
+    df.to_csv("player_scout_reports/percentiles_scouting_report/desire_doue/percentile_desire_doue.csv", index=False)
+    print("✅ Scout report saved as 'percentile_desire_doue.csv'")
 else:
     print("❌ Table 'scout_full_MF' not found directly in HTML")
