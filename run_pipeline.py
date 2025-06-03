@@ -12,15 +12,15 @@ import pandas as pd
 
 # Remember to change URL and table_id
 tables = [
-    scrape_table("https://fbref.com/en/comps/23/stats/Eredivisie-Stats", "stats_standard"),
-    scrape_table("https://fbref.com/en/comps/23/shooting/Eredivisie-Stats", "stats_shooting"),
-    scrape_table("https://fbref.com/en/comps/23/passing/Eredivisie-Stats", "stats_passing"),
-    scrape_table("https://fbref.com/en/comps/23/passing_types/Eredivisie-Stats", "stats_passing_types"),
-    scrape_table("https://fbref.com/en/comps/23/gca/Eredivisie-Stats", "stats_gca"),
-    scrape_table("https://fbref.com/en/comps/23/defense/Eredivisie-Stats", "stats_defense"),
-    scrape_table("https://fbref.com/en/comps/23/possession/Eredivisie-Stats", "stats_possession"),
-    scrape_table("https://fbref.com/en/comps/23/playingtime/Eredivisie-Stats", "stats_playing_time"),
-    scrape_table("https://fbref.com/en/comps/23/misc/Eredivisie-Stats", "stats_misc"),
+    scrape_table("https://fbref.com/en/comps/32/stats/Primeira-Liga-Stats", "stats_standard"),
+    scrape_table("https://fbref.com/en/comps/32/shooting/Primeira-Liga-Stats", "stats_shooting"),
+    scrape_table("https://fbref.com/en/comps/32/passing/Primeira-Liga-Stats", "stats_passing"),
+    scrape_table("https://fbref.com/en/comps/32/passing_types/Primeira-Liga-Stats", "stats_passing_types"),
+    scrape_table("https://fbref.com/en/comps/32/gca/Primeira-Liga-Stats", "stats_gca"),
+    scrape_table("https://fbref.com/en/comps/32/defense/Primeira-Liga-Stats", "stats_defense"),
+    scrape_table("https://fbref.com/en/comps/32/possession/Primeira-Liga-Stats", "stats_possession"),
+    scrape_table("https://fbref.com/en/comps/32/playingtime/Primeira-Liga-Stats", "stats_playing_time"),
+    scrape_table("https://fbref.com/en/comps/32/misc/Primeira-Liga-Stats", "stats_misc"),
 ]
 
 # GK tables
@@ -30,18 +30,18 @@ tables = [
 # ]
 
 # Step 2: Merge
-merge_data(tables).to_csv("output/Eredivisie_24_25/merged_eredivisie_24_25.csv", index=False)
-df = pd.read_csv("output/Eredivisie_24_25/merged_eredivisie_24_25.csv")
+merge_data(tables).to_csv("output/Primeira_Liga_24_25/merged_Primeira_Liga_24_25.csv", index=False)
+df = pd.read_csv("output/Primeira_Liga_24_25/merged_Primeira_Liga_24_25.csv")
 
 # Step 3: Per 90
 df = calculate_per90(df)
-df.to_csv("output/Eredivisie_24_25/per90_eredivisie_24_25.csv", index=False)
+df.to_csv("output/Primeira_Liga_24_25/per90_Primeira_Liga_24_25.csv", index=False)
 
 # Step 4: Filter by 90s played (min. 450 mins)
 df = filter_by_90s(df, min_90s=5.0)
-df.to_csv("output/Eredivisie_24_25/filter_eredivisie_24_25.csv", index=False)
+df.to_csv("output/Primeira_Liga_24_25/filter_Primeira_Liga_24_25.csv", index=False)
 
 # Step 5: Reformat for better interpret for PowerBI 
-reformat_powerbi(df, "output/Eredivisie_24_25/reformat_eredivisie_24_25.csv")
+reformat_powerbi(df, "output/Primeira_Liga_24_25/reformat_Primeira_Liga_24_25.csv")
 
 print("Pipeline complete ✅")
