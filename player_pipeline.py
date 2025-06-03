@@ -4,7 +4,7 @@ from processing.utils import reformat_powerbi
 import pandas as pd
 
 # Step 1: Scrape player tables
-url = "https://fbref.com/en/players/e7fcf289/Florian-Wirtz"
+url = "https://fbref.com/en/players/9e7483ff/Desire-Doue"
 
 # Define all table IDs you want to scrape
 table_ids = [
@@ -25,18 +25,18 @@ for i, table_id in enumerate(table_ids, start=1):
 
 # Step 2: Merge
 df = merge_player_tables(tables)
-df.to_csv("output/player/1_merged.csv", index=False)
+df.to_csv("player_scout_reports/player/desire_doue/1_merged.csv", index=False)
 
 # Step 3: Calculate per90
-df = pd.read_csv("output/player/1_merged.csv")
+df = pd.read_csv("player_scout_reports/player/desire_doue/1_merged.csv")
 df = calculate_per90(df)
-df.to_csv("output/player/2_per90.csv", index=False)
+df.to_csv("player_scout_reports/player/desire_doue/2_per90.csv", index=False)
 
-# Step 4: Filter by season (e.g., 2024-2025)
-df = filter_by_season(df, "2024-2025")
-df.to_csv("output/player/3_season.csv", index=False)
+# Step 4: Filter by seasons
+df = filter_by_season(df, ["2023-2024", "2024-2025"])
+df.to_csv("player_scout_reports/player/desire_doue/3_season.csv", index=False)
 
 # Step 5: Reformat for Power BI
-reformat_powerbi(df, "output/player/4_final_powerbi.csv")
+reformat_powerbi(df, "player_scout_reports/player/desire_doue/4_final_powerbi.csv")
 
 print("🚀 Player pipeline complete!")
