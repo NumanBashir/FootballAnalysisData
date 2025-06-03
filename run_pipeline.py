@@ -23,6 +23,12 @@ tables = [
     scrape_table("https://fbref.com/en/comps/23/misc/Eredivisie-Stats", "stats_misc"),
 ]
 
+# GK tables
+# tables = [
+#     scrape_table("https://fbref.com/en/comps/32/keepers/Primeira-Liga-Stats", "stats_keeper"),
+#     scrape_table("https://fbref.com/en/comps/32/keepersadv/Primeira-Liga-Stats", "stats_keeper_adv"),
+# ]
+
 # Step 2: Merge
 merge_data(tables).to_csv("output/Eredivisie_24_25/merged_eredivisie_24_25.csv", index=False)
 df = pd.read_csv("output/Eredivisie_24_25/merged_eredivisie_24_25.csv")
