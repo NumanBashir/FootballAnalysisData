@@ -37,7 +37,7 @@ df = pd.read_csv("output/Superliga_24_25/merged_Superliga_24_25.csv")
 df = filter_by_90s(df, min_90s=3.0)
 df.to_csv("output/Superliga_24_25/filter_Superliga_24_25.csv", index=False)
 
-# Step 4: Per 90
+# Step 4: Per 90 --> If don't want per90 stats but whole number then comment out this
 df = calculate_per90(df)
 df.to_csv("output/Superliga_24_25/per90_Superliga_24_25.csv", index=False)
 
