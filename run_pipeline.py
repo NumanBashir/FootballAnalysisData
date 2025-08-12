@@ -30,18 +30,22 @@ tables = [
 # ]
 
 # Step 2: Merge
-merge_data(tables).to_csv("output\PremierLeague_24_25/merged_PremierLeague_24_25.csv", index=False)
+merge_data(tables).to_csv("output/PremierLeague_24_25/merged_PremierLeague_24_25.csv", index=False)
 df = pd.read_csv("output/PremierLeague_24_25/merged_PremierLeague_24_25.csv")
 
 # Step 3: Filter by 90s played (valid data > 5.0 / 450 mins)
-df = filter_by_90s(df, min_90s=3.0)
+df = filter_by_90s(df, min_90s=5.0)
 df.to_csv("output/PremierLeague_24_25/filter_PremierLeague_24_25.csv", index=False)
 
-# Step 4: Per 90 --> If don't want per90 stats but whole number then comment out this
-df = calculate_per90(df)
-df.to_csv("output/PremierLeague_24_25/per90_PremierLeague_24_25.csv", index=False)
-
-# Step 5: Reformat for better interpret for PowerBI
+# Step 4: Reformat for better interpret for PowerBI
 reformat_powerbi(df, "output/PremierLeague_24_25/reformat_PremierLeague_24_25.csv")
+
+
+### EXTRA STEP --> Total + per90
+# This is a BIG table with both total and per90 --> Comment out this if don't need --> Use PowerBI to calculate per90
+df = calculate_per90(df)
+df.to_csv("output/PremierLeague_24_25/BIG_per90_PremierLeague_24_25.csv", index=False)
+reformat_powerbi(df, "output/PremierLeague_24_25/BIG_reformat_PremierLeague_24_25.csv")
+
 
 print("Pipeline complete ✅")
