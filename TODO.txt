@@ -13,7 +13,7 @@ Create pipeline for extracting data for players for each league
 
 ✅ 3. Only calculate per90 for integer columns --> Not same order as merged, but doesn't matter as we still have the data
 
-4.0 Rescrape all data with filter before per90
+4.0 Rescrape all data with filter by 90s played before per90 
 
 For Windows
 git pull

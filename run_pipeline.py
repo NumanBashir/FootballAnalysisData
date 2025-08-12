@@ -12,15 +12,15 @@ import pandas as pd
 
 # Remember to change URL and table_id
 tables = [
-    scrape_table("https://fbref.com/en/comps/50/stats/Danish-Superliga-Stats", "stats_standard"),
-    scrape_table("https://fbref.com/en/comps/50/shooting/Danish-Superliga-Stats", "stats_shooting"),
-    # scrape_table("https://fbref.com/en/comps/32/passing/Primeira-Liga-Stats", "stats_passing"),
-    # scrape_table("https://fbref.com/en/comps/32/passing_types/Primeira-Liga-Stats", "stats_passing_types"),
-    # scrape_table("https://fbref.com/en/comps/32/gca/Primeira-Liga-Stats", "stats_gca"),
-    # scrape_table("https://fbref.com/en/comps/32/defense/Primeira-Liga-Stats", "stats_defense"),
-    # scrape_table("https://fbref.com/en/comps/32/possession/Primeira-Liga-Stats", "stats_possession"),
-    scrape_table("https://fbref.com/en/comps/50/playingtime/Danish-Superliga-Stats", "stats_playing_time"),
-    scrape_table("https://fbref.com/en/comps/50/misc/Danish-Superliga-Stats", "stats_misc"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats", "stats_standard"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/shooting/2024-2025-Premier-League-Stats", "stats_shooting"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/passing/2024-2025-Premier-League-Stats", "stats_passing"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/passing_types/2024-2025-Premier-League-Stats", "stats_passing_types"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/gca/2024-2025-Premier-League-Stats", "stats_gca"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/defense/2024-2025-Premier-League-Stats", "stats_defense"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/possession/2024-2025-Premier-League-Stats", "stats_possession"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/playingtime/2024-2025-Premier-League-Stats", "stats_playing_time"),
+    scrape_table("https://fbref.com/en/comps/9/2024-2025/misc/2024-2025-Premier-League-Stats", "stats_misc"),
 ]
 
 # GK tables
@@ -30,18 +30,18 @@ tables = [
 # ]
 
 # Step 2: Merge
-merge_data(tables).to_csv("output/Superliga_24_25/merged_Superliga_24_25.csv", index=False)
-df = pd.read_csv("output/Superliga_24_25/merged_Superliga_24_25.csv")
+merge_data(tables).to_csv("output\PremierLeague_24_25/merged_PremierLeague_24_25.csv", index=False)
+df = pd.read_csv("output/PremierLeague_24_25/merged_PremierLeague_24_25.csv")
 
 # Step 3: Filter by 90s played (valid data > 5.0 / 450 mins)
 df = filter_by_90s(df, min_90s=3.0)
-df.to_csv("output/Superliga_24_25/filter_Superliga_24_25.csv", index=False)
+df.to_csv("output/PremierLeague_24_25/filter_PremierLeague_24_25.csv", index=False)
 
 # Step 4: Per 90 --> If don't want per90 stats but whole number then comment out this
 df = calculate_per90(df)
-df.to_csv("output/Superliga_24_25/per90_Superliga_24_25.csv", index=False)
+df.to_csv("output/PremierLeague_24_25/per90_PremierLeague_24_25.csv", index=False)
 
-# Step 5: Reformat for better interpret for PowerBI 
-reformat_powerbi(df, "output/Superliga_24_25/reformat_Superliga_24_25.csv")
+# Step 5: Reformat for better interpret for PowerBI
+reformat_powerbi(df, "output/PremierLeague_24_25/reformat_PremierLeague_24_25.csv")
 
 print("Pipeline complete ✅")
