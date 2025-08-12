@@ -15,6 +15,11 @@ Create pipeline for extracting data for players for each league
 
 4.0 Rescrape all data with filter by 90s played before per90 
 
+We keep per90 upto PowerBI, but have the option to let Python calculate also.
+Best practice is to keep total in data source
+
+If PowerBI makes Column1, Column2... then you can Transform the data and choose "Select first row as header"
+
 For Windows
 git pull
 python -m venv venv

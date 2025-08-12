@@ -1,0 +1,49 @@
+let
+    // 1) Source: replace this with your actual source step if needed
+    Source = #"Your Previous Step",
+
+    // 2) Ensure 90s is numeric (adjust type if needed)
+    With90s = Table.TransformColumnTypes(Source, {{"90s", type number}}),
+
+    // 3) Get schema to find numeric columns
+    Sch = Table.Schema(With90s),
+    NumericCols = Table.SelectRows(Sch, each Text.StartsWith([Kind], "Number"))[Name],
+
+    // 4) Hard exclusions (ID/base columns you never convert)
+    HardExclude = {
+        "Rk","Born","Age","Matches","Player","Nation","Pos","Squad",
+        "Min","MP","Starts","90s"
+    },
+
+    // 5) Pattern-based exclusions (percentages, ratios, already per-90-like)
+    IsExcludedByPattern =
+        (col as text) as logical =>
+            Text.Contains(col, "%") or
+            Text.Contains(col, "/") or
+            Text.EndsWith(Text.Lower(col), "90") or        // e.g. SCA90, GCA90
+            Text.Contains(Text.Lower(col), "per90") or     // already per90
+            Text.Contains(col, "On-Off") or
+            Text.EndsWith(col, "Won%"),
+
+    // 6) Candidate columns = numeric minus hard + pattern exclusions
+    CandidatesRaw = List.Difference(NumericCols, HardExclude),
+    Candidates = List.Select(CandidatesRaw, each not IsExcludedByPattern(_)),
+
+    // 7) Add per90 columns for each candidate
+    AddPer90 =
+        List.Accumulate(
+            Candidates,
+            With90s,
+            (state as table, col as text) =>
+                Table.AddColumn(
+                    state,
+                    col & "_per90",
+                    each let
+                        n90 = try [90s] otherwise 0,
+                        v   = try Record.Field(_, col) otherwise null
+                    in if n90 <> null and n90 > 0 and v <> null then Number.Round(v / n90, 2) else 0,
+                    type number
+                )
+        )
+in
+    AddPer90
