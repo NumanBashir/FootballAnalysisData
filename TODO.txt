@@ -15,8 +15,11 @@ Create pipeline for extracting data for players for each league
 
 4.0 Rescrape all data with filter by 90s played before per90 
 
-5.0 Team scrape data
-5.1 Average of all teams  
+✅ 5.0 Team scrape data
+✅ 5.1 Average of all teams as one row 
+        5.1.1 Merge Team scrape data with league average
+5.2 Calculate per90 (90s)
+
 "team_output/PremierLeague_24_25/team_merged_PremierLeague_24_25.csv"
 
 We keep per90 upto PowerBI, but have the option to let Python calculate also.
