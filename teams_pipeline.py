@@ -2,6 +2,8 @@ from scraping.team_scraper import scrape_team_table
 from processing.team_utils import merge_team_tables, league_average_only
 from processing.utils import calculate_per90, reformat_powerbi
 import pandas as pd
+import time, random
+
 
 url = "https://fbref.com/en/comps/9/2024-2025/2024-2025-Premier-League-Stats"
 
@@ -22,6 +24,8 @@ for i, table_id in enumerate(table_ids, start=1):
         tables.append(df)
     else:
         print(f"❌ Table {i} not found: {table_id}")
+
+    time.sleep(random.uniform(3, 6))
 
 
 # Step 2: Merge

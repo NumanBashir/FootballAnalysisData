@@ -8,8 +8,22 @@ def scrape_team_table(url: str, table_id: str):
     Scrapes a team table from a league stats page.
     Handles both visible HTML tables and tables hidden in comments.
     """
-    scraper = cloudscraper.create_scraper()
+    # scraper = cloudscraper.create_scraper()
+    scraper = cloudscraper.create_scraper(
+        browser={
+            'custom': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                      'AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/127.0.0.1 Safari/537.36'
+        }
+    )
+
     response = scraper.get(url)
+
+    # 🔍 Debug: Check if we got blocked or the page is different
+    print(f"[DEBUG] Table ID: {table_id}")
+    print("Response length:", len(response.text))
+    print(response.text[:500])  # first 500 characters of the HTML
+
     soup = BeautifulSoup(response.text, "html.parser")
 
     # 1️⃣ Try finding table directly in the HTML
