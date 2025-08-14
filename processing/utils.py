@@ -129,3 +129,50 @@ def player_league_average_only(df):
             avg_row[col] = None
 
     return pd.DataFrame([avg_row])
+
+def player_league_average_by_position(df, positions):
+    """
+    Returns a DataFrame with league averages for only the players whose 'Pos' matches
+    any of the positions in the given list.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Player stats DataFrame with a 'Pos' column.
+    positions : list[str]
+        List of position strings to include (e.g., ["DF", "MF, FW"]).
+
+    Returns
+    -------
+    pandas.DataFrame
+        Single-row DataFrame with averages for the filtered players.
+    """
+    # Filter players by given positions
+    filtered_df = df[df['Pos'].isin(positions)].copy()
+
+    if filtered_df.empty:
+        raise ValueError(f"No players found for positions: {positions}")
+
+    # Columns we should never average (metadata or IDs)
+    do_not_avg = {
+        'Rk', 'Player', 'Nation', 'Pos', 'Squad',
+        'Matches', 'Born', 'MP', 'Starts', 'Min', '90s'
+    }
+
+    avg_row = {}
+
+    for col in filtered_df.columns:
+        if col == 'Player':
+            avg_row[col] = f"Avg for {', '.join(positions)}"
+        elif col == 'Squad':
+            avg_row[col] = "Selected teams"
+        elif col in do_not_avg:
+            avg_row[col] = None
+        else:
+            col_num = pd.to_numeric(filtered_df[col], errors='coerce')
+            if not col_num.isna().all():
+                avg_row[col] = round(col_num.mean(), 2)
+            else:
+                avg_row[col] = None
+
+    return pd.DataFrame([avg_row])

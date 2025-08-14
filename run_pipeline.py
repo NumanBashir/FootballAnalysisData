@@ -1,7 +1,7 @@
 # Main script that runs everything in order
 
 from scraping.fbref_scraper import scrape_table
-from processing.utils import merge_data, calculate_per90, filter_by_90s, reformat_powerbi, player_league_average_only
+from processing.utils import merge_data, calculate_per90, filter_by_90s, reformat_powerbi, player_league_average_only, player_league_average_by_position
 import pandas as pd
 
 # Step 1: Scrape (or manually save and load)
@@ -49,11 +49,29 @@ df = filter_by_90s(df, min_90s=5.0) # This filters the DataFrame to only include
 df = calculate_per90(df) # This calculates per90 stats
 # df.to_csv("output/PremierLeague_24_25/BIG_per90_PremierLeague_24_25.csv", index=False) # Export
 
-# Calculate league average and append league average to entire list, then reformat
-df_avg_per90 = player_league_average_only(df) # Create league average data set
-df_avg_per90 = df_avg_per90.reindex(columns=df.columns)  # align column order
-df_with_avg_per90 = pd.concat([df, df_avg_per90], ignore_index=True) # Combine with original data
-reformat_powerbi(df_with_avg_per90, "output/PremierLeague_24_25/final_players_with_league_avg_PremierLeague_24_25.csv")
+
+### NOT POSITION BASED
+
+# Calculate league average and append ENTIRE league average to entire list (not position based), then reformat
+# df_avg_per90 = player_league_average_only(df) # Create league average data set
+# df_avg_per90 = df_avg_per90.reindex(columns=df.columns)  # align column order
+# df_with_avg_per90 = pd.concat([df, df_avg_per90], ignore_index=True) # Combine with original data
+# reformat_powerbi(df_with_avg_per90, "output/PremierLeague_24_25/final_players_with_league_avg_PremierLeague_24_25.csv")
+
+### NOT POSITION BASED
+
+
+### POSITION BASED
+
+# Calculate league average based on POSITION
+# List for reference: ["DF", "DF, FW", "DF, MF", "FW", "FW, DF", "FW, MF", "GK", "MF", "MF, DF", "MF, FW"]
+df_avg_per90_position = player_league_average_by_position(df, positions=["DF"])
+df_avg_per90_position = df_avg_per90_position.reindex(columns=df.columns)  # align column order
+df_with_avg_per90_position = pd.concat([df, df_avg_per90_position], ignore_index=True)  # Combine with original data
+reformat_powerbi(df_with_avg_per90_position, "output/PremierLeague_24_25/DF_final_players_with_league_avg_position_PremierLeague_24_25.csv")
+
+### POSITION BASED
+
 
 # reformat_powerbi(df, "output/PremierLeague_24_25/BIG_reformat_PremierLeague_24_25.csv")
 
