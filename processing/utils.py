@@ -99,3 +99,33 @@ def filter_by_90s(df, min_90s=4.0):
 # Reformat for PowerBI
 def reformat_powerbi(df, path):
     df.to_csv(path, sep=';', decimal=',', index=False)
+
+
+def player_league_average_only(df):
+    """
+    Returns a DataFrame containing only the league average row for all numeric columns
+    in the players list, excluding MP, Starts, Min, and 90s. 
+    Rounds to 2 decimals.
+    """
+    # Ensure column names are unique
+    df = df.loc[:, ~df.columns.duplicated()]
+
+    exclude_cols = {'MP', 'Starts', 'Min', '90s'}
+
+    numeric_cols = []
+    for col in df.columns:
+        if col not in exclude_cols and col != "Player":
+            df.loc[:, col] = pd.to_numeric(df[col], errors='coerce')  # ensure numeric
+            if pd.api.types.is_numeric_dtype(df[col]):
+                numeric_cols.append(col)
+
+    avg_row = {}
+    for col in df.columns:
+        if col == "Player":
+            avg_row[col] = "All players"
+        elif col in numeric_cols:
+            avg_row[col] = round(df[col].mean(), 2)
+        else:
+            avg_row[col] = None
+
+    return pd.DataFrame([avg_row])
