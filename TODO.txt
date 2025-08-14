@@ -18,7 +18,10 @@ Create pipeline for extracting data for players for each league
 ✅ 5.0 Team scrape data
 ✅ 5.1 Average of all teams as one row 
         5.1.1 Merge Team scrape data with league average
-5.2 Calculate per90 (90s)
+✅ 5.2 Calculate per90 (90s)
+
+6.0 Calculate average for all players
+6.1 Append all_players_average to list
 
 "team_output/PremierLeague_24_25/team_merged_PremierLeague_24_25.csv"
 
@@ -34,3 +37,8 @@ python -m venv venv
 pip install -r requirements.txt
 
 Proxy server
+
+
+NOTES:
+I tried to compare single player against entire league average of every team. 
+Team per90 stats represent the whole squad’s combined output, not individual output, so the numbers are on different scales and contexts.
