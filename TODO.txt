@@ -20,8 +20,9 @@ Create pipeline for extracting data for players for each league
         5.1.1 Merge Team scrape data with league average
 ✅ 5.2 Calculate per90 (90s)
 
-6.0 Calculate average for all players
-6.1 Append all_players_average to list
+✅ 6.0 Calculate average for all players
+✅ 6.1 Append all_players_average to list
+6.2 Be able to filter positions (list of different positions from FBref)
 
 "team_output/PremierLeague_24_25/team_merged_PremierLeague_24_25.csv"
 
@@ -42,3 +43,6 @@ Proxy server
 NOTES:
 I tried to compare single player against entire league average of every team. 
 Team per90 stats represent the whole squad’s combined output, not individual output, so the numbers are on different scales and contexts.
+
+Gls.1 and Gls_per90 is the same, we just have extra parameter in the FBref data set that already calculates per90
+Just ignore Gls.1 and Ast.1
