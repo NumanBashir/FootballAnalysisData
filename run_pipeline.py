@@ -65,10 +65,10 @@ df = calculate_per90(df) # This calculates per90 stats
 
 # Calculate league average based on POSITION
 # List for reference: ["DF", "DF, FW", "DF, MF", "FW", "FW, DF", "FW, MF", "GK", "MF", "MF, DF", "MF, FW"]
-df_avg_per90_position = player_league_average_by_position(df, positions=["DF"])
+df_avg_per90_position = player_league_average_by_position(df, positions=["FW", "FW, MF", "MF", "MF, FW"])
 df_avg_per90_position = df_avg_per90_position.reindex(columns=df.columns)  # align column order
 df_with_avg_per90_position = pd.concat([df, df_avg_per90_position], ignore_index=True)  # Combine with original data
-reformat_powerbi(df_with_avg_per90_position, "output/PremierLeague_24_25/DF_final_players_with_league_avg_position_PremierLeague_24_25.csv")
+reformat_powerbi(df_with_avg_per90_position, "output/PremierLeague_24_25/Attackers_final_players_with_league_avg_position_PremierLeague_24_25.csv")
 
 ### POSITION BASED
 
