@@ -36,4 +36,11 @@ df.to_csv("team_output/PremierLeague_24_25/team_merged_PremierLeague_24_25.csv",
 df_avg = league_average_only(df)
 df_avg.to_csv("team_output/PremierLeague_24_25/team_league_average_24_25.csv", index=False)
 
+# OPT: Reindex to match the original DataFrame columns and append the league average to the merged DataFrame, then save final CSV with league average included
+# df_avg = df_avg.reindex(columns=df.columns)
+# df_with_avg = pd.concat([df, df_avg], ignore_index=True)
+# df_with_avg.to_csv("team_output/PremierLeague_24_25/team_merged_with_avg_PremierLeague_24_25.csv", index=False)
+
+
+
 print("Team pipeline complete ✅")

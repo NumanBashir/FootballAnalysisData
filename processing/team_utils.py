@@ -27,12 +27,12 @@ import pandas as pd
 def league_average_only(df):
     """
     Returns a DataFrame containing only the league average row for all numeric columns,
-    excluding MP, Starts, Min, 90s. Rounds to 1 decimal.
+    excluding MP, Starts, Min. Rounds to 1 decimal.
     """
     # Ensure column names are unique
     df = df.loc[:, ~df.columns.duplicated()]
 
-    exclude_cols = {'MP', 'Starts', 'Min', '90s'}
+    exclude_cols = {'MP', 'Starts', 'Min'}
 
     numeric_cols = []
     for col in df.columns:
