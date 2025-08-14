@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import re
 
 def merge_team_tables(df_list):
     """
@@ -51,5 +53,72 @@ def league_average_only(df):
             avg_row[col] = None
 
     return pd.DataFrame([avg_row])
+
+
+def team_calculate_per90(df):
+    # --- Step 1: Deduplicate column names ---
+    # Strip spaces first
+    df.columns = df.columns.str.strip()
+
+    # Add suffixes to duplicate names
+    seen = {}
+    new_cols = []
+    for col in df.columns:
+        if col in seen:
+            seen[col] += 1
+            new_cols.append(f"{col}_{seen[col]}")  # e.g. Gls_2
+        else:
+            seen[col] = 0
+            new_cols.append(col)
+    df.columns = new_cols
+
+    # --- Step 2: Ensure 90s column is numeric ---
+    df['90s'] = pd.to_numeric(df.get('90s'), errors='coerce').fillna(0)
+
+    # --- Step 3: Columns never to convert ---
+    excluded_cols = {
+        'Squad', '# Pl', 'Age', 'Poss', 'MP', 'Starts', 'Min', '90s'
+    }
+
+    # --- Step 4: Patterns to exclude ---
+    exclude_patterns = [
+        r'%',           # percentages
+        r'per90',       # already per-90
+        r'/90',         # already per-90
+        r'^90s$',       # base column
+        r'On-Off',      # on/off diffs
+        r'Won%$',       # win %
+    ]
+    exclude_re = re.compile('|'.join(exclude_patterns), flags=re.IGNORECASE)
+
+    raw_cols = []
+
+    # --- Step 5: Detect numeric columns for per90 ---
+    for col in df.columns:
+        if col in excluded_cols or exclude_re.search(str(col)):
+            continue
+
+        try:
+            col_data = pd.to_numeric(df[col], errors='coerce')
+            if not col_data.isna().all():
+                raw_cols.append(col)
+        except Exception:
+            continue
+
+    print(f"🔍 Converting to per90: {raw_cols}")
+
+    # --- Step 6: Vectorized per90 calculation (avoid fragmentation) ---
+    per90_df = pd.DataFrame(index=df.index)
+    for col in raw_cols:
+        per90_df[f"{col}_per90"] = np.where(
+            df['90s'] > 0,
+            (pd.to_numeric(df[col], errors='coerce') / df['90s']).round(1),
+            0
+        )
+
+    # --- Step 7: Concatenate new columns in one go to avoid fragmentation ---
+    df = pd.concat([df, per90_df], axis=1)
+
+    return df
 
 

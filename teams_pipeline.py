@@ -1,6 +1,6 @@
 from scraping.team_scraper import scrape_team_table
-from processing.team_utils import merge_team_tables, league_average_only
-from processing.utils import calculate_per90, reformat_powerbi
+from processing.team_utils import merge_team_tables, league_average_only, team_calculate_per90
+from processing.utils import reformat_powerbi
 import pandas as pd
 import time, random
 
@@ -35,6 +35,10 @@ df.to_csv("team_output/PremierLeague_24_25/team_merged_PremierLeague_24_25.csv",
 # Step 3: Get only the league average
 df_avg = league_average_only(df)
 df_avg.to_csv("team_output/PremierLeague_24_25/team_league_average_24_25.csv", index=False)
+
+# Step 4: Calculate per 90 stats
+df_per90 = team_calculate_per90(df)
+df_per90.to_csv("team_output/PremierLeague_24_25/team_per90_PremierLeague_24_25.csv", index=False)
 
 # OPT: Reindex to match the original DataFrame columns and append the league average to the merged DataFrame, then save final CSV with league average included
 # df_avg = df_avg.reindex(columns=df.columns)
