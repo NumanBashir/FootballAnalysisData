@@ -48,7 +48,7 @@ def league_average_only(df):
         if col == "Squad":
             avg_row[col] = "All teams"
         elif col in numeric_cols:
-            avg_row[col] = round(df[col].mean(), 1)
+            avg_row[col] = round(df[col].mean(), 2)
         else:
             avg_row[col] = None
 
@@ -112,7 +112,7 @@ def team_calculate_per90(df):
     for col in raw_cols:
         per90_df[f"{col}_per90"] = np.where(
             df['90s'] > 0,
-            (pd.to_numeric(df[col], errors='coerce') / df['90s']).round(1),
+            (pd.to_numeric(df[col], errors='coerce') / df['90s']).round(2),
             0
         )
 

@@ -32,19 +32,31 @@ for i, table_id in enumerate(table_ids, start=1):
 df = merge_team_tables(tables)
 df.to_csv("team_output/PremierLeague_24_25/team_merged_PremierLeague_24_25.csv", index=False)
 
-# Step 3: Get only the league average
+# Step 3: Get ONLY the league average
 df_avg = league_average_only(df)
-df_avg.to_csv("team_output/PremierLeague_24_25/team_league_average_24_25.csv", index=False)
-
-# Step 4: Calculate per 90 stats
-df_per90 = team_calculate_per90(df)
-df_per90.to_csv("team_output/PremierLeague_24_25/team_per90_PremierLeague_24_25.csv", index=False)
+# df_avg.to_csv("team_output/PremierLeague_24_25/team_league_average_24_25.csv", index=False)
 
 # OPT: Reindex to match the original DataFrame columns and append the league average to the merged DataFrame, then save final CSV with league average included
-# df_avg = df_avg.reindex(columns=df.columns)
-# df_with_avg = pd.concat([df, df_avg], ignore_index=True)
+df_avg = df_avg.reindex(columns=df.columns)
+df_with_avg = pd.concat([df, df_avg], ignore_index=True)
 # df_with_avg.to_csv("team_output/PremierLeague_24_25/team_merged_with_avg_PremierLeague_24_25.csv", index=False)
 
+reformat_powerbi(df_with_avg, "team_output/PremierLeague_24_25/final_team_merged_with_avg_PremierLeague_24_25.csv")
 
+# Step 4: Calculate team per90 stats
+df_team_per90 = team_calculate_per90(df)
+# df_team_per90.to_csv("team_output/PremierLeague_24_25/team_per90_PremierLeague_24_25.csv", index=False)
+
+# Step 5: Get ONLY league average per 90
+df_avg_per90 = league_average_only(df_team_per90)
+# df_avg_per90.to_csv("team_output/PremierLeague_24_25/team_league_average_per90_24_25.csv", index=False)
+
+# OPT: Append the league average per90 to the average per90, then save final CSV with league average included
+df_avg_per90 = df_avg_per90.reindex(columns=df_team_per90.columns)
+df_per90_with_avg = pd.concat([df_team_per90, df_avg_per90], ignore_index=True)
+# df_per90_with_avg.to_csv("team_output/PremierLeague_24_25/team_per90_with_avg_PremierLeague_24_25.csv", index=False)
+
+# Step 6: Reformat for Power BI (make sure to use the correct DataFrame)
+reformat_powerbi(df_per90_with_avg, "team_output/PremierLeague_24_25/final_team_per90_with_league_avg_per90_PremierLeague_24_25.csv")
 
 print("Team pipeline complete ✅")
