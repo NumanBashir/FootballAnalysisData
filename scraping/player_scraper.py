@@ -1,3 +1,4 @@
+from urllib import response
 import cloudscraper
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -16,6 +17,11 @@ def scrape_player_table(url: str, table_id: str):
     """
     scraper = cloudscraper.create_scraper()
     response = scraper.get(url)
+
+    print(f"[DEBUG] Table ID: {table_id}")
+    print("Response length:", len(response.text))
+    print(response.text[:500])  # first 500 characters of the HTML
+
     soup = BeautifulSoup(response.text, "html.parser")
 
     table = soup.find('table', {'id': table_id})

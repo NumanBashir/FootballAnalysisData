@@ -2,9 +2,10 @@ from scraping.player_scraper import scrape_player_table
 from processing.player_utils import merge_player_tables, calculate_per90, filter_by_season
 from processing.utils import reformat_powerbi
 import pandas as pd
+import time, random
 
 # Step 1: Scrape player tables
-url = "https://fbref.com/en/players/9e7483ff/Desire-Doue"
+url = "https://fbref.com/en/players/dc62b55d/Matheus-Cunha"
 
 # Define all table IDs you want to scrape
 table_ids = [
@@ -23,20 +24,22 @@ for i, table_id in enumerate(table_ids, start=1):
     else:
         print(f"❌ Table {i} not found: {table_id}")
 
+    time.sleep(random.uniform(3, 6))
+
 # Step 2: Merge
 df = merge_player_tables(tables)
-df.to_csv("player_scout_reports/player/desire_doue/1_merged.csv", index=False)
+df.to_csv("player_scout_reports/player/matheus_cunha/1_merged.csv", index=False)
 
 # Step 3: Calculate per90
-df = pd.read_csv("player_scout_reports/player/desire_doue/1_merged.csv")
+df = pd.read_csv("player_scout_reports/player/matheus_cunha/1_merged.csv")
 df = calculate_per90(df)
-df.to_csv("player_scout_reports/player/desire_doue/2_per90.csv", index=False)
+df.to_csv("player_scout_reports/player/matheus_cunha/2_per90.csv", index=False)
 
 # Step 4: Filter by seasons
-df = filter_by_season(df, ["2023-2024", "2024-2025"])
-df.to_csv("player_scout_reports/player/desire_doue/3_season.csv", index=False)
+df = filter_by_season(df, ["2024-2025"])
+df.to_csv("player_scout_reports/player/matheus_cunha/3_season.csv", index=False)
 
 # Step 5: Reformat for Power BI
-reformat_powerbi(df, "player_scout_reports/player/desire_doue/4_final_powerbi.csv")
+reformat_powerbi(df, "player_scout_reports/player/matheus_cunha/final_powerbi.csv")
 
 print("🚀 Player pipeline complete!")

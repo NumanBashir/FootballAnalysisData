@@ -12,15 +12,15 @@ import pandas as pd
 
 # Remember to change URL and table_id
 tables = [
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats", "stats_standard"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/shooting/2024-2025-Premier-League-Stats", "stats_shooting"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/passing/2024-2025-Premier-League-Stats", "stats_passing"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/passing_types/2024-2025-Premier-League-Stats", "stats_passing_types"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/gca/2024-2025-Premier-League-Stats", "stats_gca"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/defense/2024-2025-Premier-League-Stats", "stats_defense"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/possession/2024-2025-Premier-League-Stats", "stats_possession"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/playingtime/2024-2025-Premier-League-Stats", "stats_playing_time"),
-    scrape_table("https://fbref.com/en/comps/9/2024-2025/misc/2024-2025-Premier-League-Stats", "stats_misc"),
+    scrape_table("https://fbref.com/en/comps/24/stats/Serie-A-Stats", "stats_standard"),
+    scrape_table("https://fbref.com/en/comps/24/shooting/Serie-A-Stats", "stats_shooting"),
+    scrape_table("https://fbref.com/en/comps/24/passing/Serie-A-Stats", "stats_passing"),
+    scrape_table("https://fbref.com/en/comps/24/passing_types/Serie-A-Stats", "stats_passing_types"),
+    scrape_table("https://fbref.com/en/comps/24/gca/Serie-A-Stats", "stats_gca"),
+    scrape_table("https://fbref.com/en/comps/24/defense/Serie-A-Stats", "stats_defense"),
+    scrape_table("https://fbref.com/en/comps/24/possession/Serie-A-Stats", "stats_possession"),
+    scrape_table("https://fbref.com/en/comps/24/playingtime/Serie-A-Stats", "stats_playing_time"),
+    scrape_table("https://fbref.com/en/comps/24/misc/Serie-A-Stats", "stats_misc"),
 ]
 
 # GK tables
@@ -30,8 +30,8 @@ tables = [
 # ]
 
 # Merge into one DataFrame for ALL players
-merge_data(tables).to_csv("output/PremierLeague_24_25/merged_PremierLeague_24_25.csv", index=False)
-df = pd.read_csv("output/PremierLeague_24_25/merged_PremierLeague_24_25.csv")
+merge_data(tables).to_csv("output/BrasileiroSerieA_25/merged_BrasileiroSerieA_25.csv", index=False)
+df = pd.read_csv("output/BrasileiroSerieA_25/merged_BrasileiroSerieA_25.csv")
 
 # Filter by 90s played (valid data > 5.0 / 450 mins)
 df = filter_by_90s(df, min_90s=5.0) # This filters the DataFrame to only include players with more than 5 matches played
@@ -75,13 +75,13 @@ df = calculate_per90(df) # This calculates per90 stats
 # reformat_powerbi(df_with_avg_per90_position, "output/PremierLeague_24_25/Attackers_final_players_with_league_avg_position_PremierLeague_24_25.csv")
 
 # SINGLE ROW CSV --> We do this so that every time we need to compare some new averages, we can just take this, and append to our BIG table
-df_avg_per90_single_row = player_league_average_by_position(df, positions=["FW", "FW, MF", "MF, FW"])
-reformat_powerbi(df_avg_per90_single_row, "output/PremierLeague_24_25/Attackers_final_single_row_PremierLeague_24_25.csv")
+# df_avg_per90_single_row = player_league_average_by_position(df, positions=["FW", "FW, MF", "MF, FW"])
+# reformat_powerbi(df_avg_per90_single_row, "output/PremierLeague_24_25/Attackers_final_single_row_PremierLeague_24_25.csv")
 
 ### POSITION BASED
 
 
-reformat_powerbi(df, "output/PremierLeague_24_25/BIG_reformat_PremierLeague_24_25.csv")
+reformat_powerbi(df, "output/BrasileiroSerieA_25/BIG_reformat_BrasileiroSerieA_25.csv")
 
 
 print("Pipeline complete ✅")
