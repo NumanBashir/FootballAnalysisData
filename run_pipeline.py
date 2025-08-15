@@ -75,7 +75,7 @@ df = calculate_per90(df) # This calculates per90 stats
 # reformat_powerbi(df_with_avg_per90_position, "output/PremierLeague_24_25/Attackers_final_players_with_league_avg_position_PremierLeague_24_25.csv")
 
 # SINGLE ROW CSV --> We do this so that every time we need to compare some new averages, we can just take this, and append to our BIG table
-df_avg_per90_single_row = player_league_average_by_position(df, positions=["FW", "FW, MF", "MF", "MF, FW"])
+df_avg_per90_single_row = player_league_average_by_position(df, positions=["FW", "FW, MF", "MF, FW"])
 reformat_powerbi(df_avg_per90_single_row, "output/PremierLeague_24_25/Attackers_final_single_row_PremierLeague_24_25.csv")
 
 ### POSITION BASED

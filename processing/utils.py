@@ -67,12 +67,12 @@ def calculate_per90(df):
 
     # Exclude patterns: percentages, already per90, ratios, the 90s base, on/off, win%
     exclude_patterns = [
-        r'%',          # any percentage column (Cmp%, Won%, etc.)
-        r'per90',      # already per-90 columns
-        r'/',          # ratios like G/Sh, Mn/Sub, etc.
-        r'^90s$',      # the base itself
-        r'On-Off',     # on/off diffs
-        r'Won%$',      # win %
+        r'%',             # any percentage column (Cmp%, Won%, etc.)
+        r'per90',         # already per-90 columns
+        r'[A-Za-z]/[A-Za-z]',  # ratios like G/Sh, Mn/Sub, etc.
+        r'^90s$',         # the base itself
+        r'On-Off',        # on/off diffs
+        r'Won%$',         # win %
     ]
     exclude_re = re.compile('|'.join(exclude_patterns), flags=re.IGNORECASE)
 

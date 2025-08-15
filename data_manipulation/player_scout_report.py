@@ -9,6 +9,11 @@ def filter_by_best_rows(df, num):
     df['Percentile'] = pd.to_numeric(df['Percentile'], errors='coerce')
     return df[df['Percentile'] >= num]
 
+def filter_by_worst_rows(df, num):
+    df['Percentile'] = pd.to_numeric(df['Percentile'], errors='coerce')
+    df['Per 90'] = pd.to_numeric(df['Per 90'], errors='coerce')  # Ensure it's numeric
+    return df[(df['Percentile'] <= num) & (df['Per 90'] > 0)]
+
 def filter_top_percentile_stats(df, top_n=5):
     """
     Returns the top `top_n` rows based on the highest Percentile values.
@@ -28,11 +33,15 @@ def filter_top_percentile_stats(df, top_n=5):
     df_sorted = df.sort_values(by='Percentile', ascending=False)
     return df_sorted.head(top_n)
 
+# Reformat for PowerBI
+def reformat_powerbi(df, path):
+    df.to_csv(path, sep=';', decimal=',', index=False)
+
 # Create scraper
 scraper = cloudscraper.create_scraper()
 
 # URL of the scouting report
-url = "https://fbref.com/en/players/9e7483ff/scout/365_m1/Desire-Doue-Scouting-Report"
+url = "https://fbref.com/en/players/dc62b55d/scout/365_m1/Matheus-Cunha-Scouting-Report"
 
 # Get the response
 response = scraper.get(url)
@@ -41,7 +50,7 @@ response = scraper.get(url)
 soup = BeautifulSoup(response.text, "html.parser")
 
 # Try to find the table directly (not in comments)
-table = soup.find('table', {'id': 'scout_full_MF'})
+table = soup.find('table', {'id': 'scout_full_FW'})
 
 if table:
     df = pd.read_html(StringIO(str(table)))[0]
@@ -57,10 +66,13 @@ if table:
     df = df.drop_duplicates()
 
     # Use this method if you want to filter by best --> Comment if you want all stats
-    # df = filter_by_best_rows(df, 95)
     # df = filter_top_percentile_stats(df, 5)
+    df_best = filter_by_best_rows(df, 98)
+    # reformat_powerbi(df_best, "player_scout_reports/percentiles_scouting_report/matheus_cunha/min98_percentile_matheus_cunhaFW.csv")
 
-    df.to_csv("player_scout_reports/percentiles_scouting_report/desire_doue/percentile_desire_doue.csv", index=False)
-    print("✅ Scout report saved as 'percentile_desire_doue.csv'")
+    df_worst = filter_by_worst_rows(df, 40)
+    reformat_powerbi(df_worst, "player_scout_reports/percentiles_scouting_report/matheus_cunha/max40_percentile_matheus_cunhaFW.csv")
+
+    print("✅ Scout report saved as 'min98_percentile_matheus_cunhaFW.csv'")
 else:
     print("❌ Table 'scout_full_MF' not found directly in HTML")
