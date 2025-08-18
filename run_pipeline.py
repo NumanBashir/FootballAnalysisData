@@ -12,15 +12,15 @@ import pandas as pd
 
 # Remember to change URL and table_id
 tables = [
-    scrape_table("https://fbref.com/en/comps/24/stats/Serie-A-Stats", "stats_standard"),
-    scrape_table("https://fbref.com/en/comps/24/shooting/Serie-A-Stats", "stats_shooting"),
-    scrape_table("https://fbref.com/en/comps/24/passing/Serie-A-Stats", "stats_passing"),
-    scrape_table("https://fbref.com/en/comps/24/passing_types/Serie-A-Stats", "stats_passing_types"),
-    scrape_table("https://fbref.com/en/comps/24/gca/Serie-A-Stats", "stats_gca"),
-    scrape_table("https://fbref.com/en/comps/24/defense/Serie-A-Stats", "stats_defense"),
-    scrape_table("https://fbref.com/en/comps/24/possession/Serie-A-Stats", "stats_possession"),
-    scrape_table("https://fbref.com/en/comps/24/playingtime/Serie-A-Stats", "stats_playing_time"),
-    scrape_table("https://fbref.com/en/comps/24/misc/Serie-A-Stats", "stats_misc"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/stats/2024-2025-La-Liga-Stats", "stats_standard"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/shooting/2024-2025-La-Liga-Stats", "stats_shooting"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/passing/2024-2025-La-Liga-Stats", "stats_passing"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/passing_types/2024-2025-La-Liga-Stats", "stats_passing_types"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/gca/2024-2025-La-Liga-Stats", "stats_gca"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/defense/2024-2025-La-Liga-Stats", "stats_defense"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/possession/2024-2025-La-Liga-Stats", "stats_possession"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/playingtime/2024-2025-La-Liga-Stats", "stats_playing_time"),
+    scrape_table("https://fbref.com/en/comps/12/2024-2025/misc/2024-2025-La-Liga-Stats", "stats_misc"),
 ]
 
 # GK tables
@@ -30,8 +30,8 @@ tables = [
 # ]
 
 # Merge into one DataFrame for ALL players
-merge_data(tables).to_csv("output/BrasileiroSerieA_25/merged_BrasileiroSerieA_25.csv", index=False)
-df = pd.read_csv("output/BrasileiroSerieA_25/merged_BrasileiroSerieA_25.csv")
+merge_data(tables).to_csv("output/LaLiga_24_25/merged_LaLiga_24_25.csv", index=False)
+df = pd.read_csv("output/LaLiga_24_25/merged_LaLiga_24_25.csv")
 
 # Filter by 90s played (valid data > 5.0 / 450 mins)
 df = filter_by_90s(df, min_90s=5.0) # This filters the DataFrame to only include players with more than 5 matches played
@@ -80,8 +80,7 @@ df = calculate_per90(df) # This calculates per90 stats
 
 ### POSITION BASED
 
-
-reformat_powerbi(df, "output/BrasileiroSerieA_25/BIG_reformat_BrasileiroSerieA_25.csv")
+reformat_powerbi(df, "output/LaLiga_24_25/BIG_reformat_LaLiga_24_25.csv")
 
 
 print("Pipeline complete ✅")
