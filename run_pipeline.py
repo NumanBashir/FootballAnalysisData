@@ -12,15 +12,15 @@ import pandas as pd
 
 # Remember to change URL and table_id
 tables = [
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/stats/2024-2025-La-Liga-Stats", "stats_standard"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/shooting/2024-2025-La-Liga-Stats", "stats_shooting"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/passing/2024-2025-La-Liga-Stats", "stats_passing"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/passing_types/2024-2025-La-Liga-Stats", "stats_passing_types"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/gca/2024-2025-La-Liga-Stats", "stats_gca"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/defense/2024-2025-La-Liga-Stats", "stats_defense"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/possession/2024-2025-La-Liga-Stats", "stats_possession"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/playingtime/2024-2025-La-Liga-Stats", "stats_playing_time"),
-    scrape_table("https://fbref.com/en/comps/12/2024-2025/misc/2024-2025-La-Liga-Stats", "stats_misc"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/stats/2024-2025-Eredivisie-Stats", "stats_standard"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/shooting/2024-2025-Eredivisie-Stats", "stats_shooting"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/passing/2024-2025-Eredivisie-Stats", "stats_passing"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/passing_types/2024-2025-Eredivisie-Stats", "stats_passing_types"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/gca/2024-2025-Eredivisie-Stats", "stats_gca"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/defense/2024-2025-Eredivisie-Stats", "stats_defense"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/possession/2024-2025-Eredivisie-Stats", "stats_possession"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/playingtime/2024-2025-Eredivisie-Stats", "stats_playing_time"),
+    scrape_table("https://fbref.com/en/comps/23/2024-2025/misc/2024-2025-Eredivisie-Stats", "stats_misc"),
 ]
 
 # GK tables
@@ -30,8 +30,8 @@ tables = [
 # ]
 
 # Merge into one DataFrame for ALL players
-merge_data(tables).to_csv("output/LaLiga_24_25/merged_LaLiga_24_25.csv", index=False)
-df = pd.read_csv("output/LaLiga_24_25/merged_LaLiga_24_25.csv")
+merge_data(tables).to_csv("output/Eredivisie_24_25/merged_Eredivisie_24_25.csv", index=False)
+df = pd.read_csv("output/Eredivisie_24_25/merged_Eredivisie_24_25.csv")
 
 # Filter by 90s played (valid data > 5.0 / 450 mins)
 df = filter_by_90s(df, min_90s=5.0) # This filters the DataFrame to only include players with more than 5 matches played
@@ -47,7 +47,7 @@ df = filter_by_90s(df, min_90s=5.0) # This filters the DataFrame to only include
 # This is a BIG table with both total and per90 --> Comment out this if don't need --> Use PowerBI to calculate per90
 # Calculate per90 for current DataFrame
 df = calculate_per90(df) # This calculates per90 stats
-# df.to_csv("output/PremierLeague_24_25/2BIG_per90_PremierLeague_24_25.csv", index=False) # Export
+df.to_csv("output/Eredivisie_24_25/BIG_per90_Eredivisie_24_25.csv", index=False) # Export
 
 
 ### NOT POSITION BASED
@@ -75,7 +75,7 @@ df = calculate_per90(df) # This calculates per90 stats
 # reformat_powerbi(df_avg_per90_single_row, "output/PremierLeague_24_25/Attackers_final_single_row_PremierLeague_24_25.csv")
 
 ### FINAL EXPORT
-reformat_powerbi(df, "output/LaLiga_24_25/BIG_reformat_LaLiga_24_25.csv")
+# reformat_powerbi(df, "output/LaLiga_24_25/BIG_reformat_LaLiga_24_25.csv")
 
 
 print("Pipeline complete ✅")
