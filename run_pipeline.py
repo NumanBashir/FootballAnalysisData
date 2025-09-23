@@ -47,7 +47,7 @@ df = filter_by_90s(df, min_90s=5.0) # This filters the DataFrame to only include
 # This is a BIG table with both total and per90 --> Comment out this if don't need --> Use PowerBI to calculate per90
 # Calculate per90 for current DataFrame
 df = calculate_per90(df) # This calculates per90 stats
-df.to_csv("output/PremierLeague_24_25/2BIG_per90_PremierLeague_24_25.csv", index=False) # Export
+# df.to_csv("output/PremierLeague_24_25/2BIG_per90_PremierLeague_24_25.csv", index=False) # Export
 
 
 ### NOT POSITION BASED
