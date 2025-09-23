@@ -51,7 +51,6 @@ df = calculate_per90(df) # This calculates per90 stats
 
 
 ### NOT POSITION BASED
-
 # Calculate league average and append ENTIRE league average to entire list (not position based), then reformat
 # df_avg_per90 = player_league_average_only(df) # Create league average data set
 # df_avg_per90 = df_avg_per90.reindex(columns=df.columns)  # align column order
@@ -62,11 +61,8 @@ df = calculate_per90(df) # This calculates per90 stats
 # df_avg_per90 = player_league_average_only(df)
 # reformat_powerbi(df_avg_per90, "output/PremierLeague_24_25/final_single_row_PremierLeague_24_25.csv")
 
-### NOT POSITION BASED
-
 
 ### POSITION BASED
-
 # Calculate league average based on POSITION
 # List for reference: ["DF", "DF, FW", "DF, MF", "FW", "FW, DF", "FW, MF", "GK", "MF", "MF, DF", "MF, FW"]
 # df_avg_per90_position = player_league_average_by_position(df, positions=["FW", "FW, MF", "MF", "MF, FW"])
@@ -78,8 +74,7 @@ df = calculate_per90(df) # This calculates per90 stats
 # df_avg_per90_single_row = player_league_average_by_position(df, positions=["FW", "FW, MF", "MF, FW"])
 # reformat_powerbi(df_avg_per90_single_row, "output/PremierLeague_24_25/Attackers_final_single_row_PremierLeague_24_25.csv")
 
-### POSITION BASED
-
+### FINAL EXPORT
 reformat_powerbi(df, "output/LaLiga_24_25/BIG_reformat_LaLiga_24_25.csv")
 
 
